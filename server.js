@@ -1,17 +1,21 @@
 import express from 'express';
 import admin from 'firebase-admin';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5002;
 
 let serviceAccount;
 try {
-    if (process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
-        serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+    const base64EncodedKey = process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64;
+    if (base64EncodedKey) {
+        const decodedServiceAccount = Buffer.from(base64EncodedKey, 'base64').toString('utf8');
+        serviceAccount = JSON.parse(decodedServiceAccount);
     } else {
-        throw new Error("GOOGLE_APPLICATION_CREDENTIALS_JSON environment variable is not set.");
+        throw new Error("GOOGLE_APPLICATION_CREDENTIALS_BASE64 environment variable is not set.");
     }
 } catch (error) {
     console.error("Failed to parse service account key from environment variable:", error);
