@@ -67,17 +67,10 @@ const getStartOfMonthEAT = (date) => {
   return admin.firestore.Timestamp.fromDate(d);
 };
 
-// --- Fallback-safe aggregation ---
+// --- Classic sum fallback ---
 async function sumSales(collectionRef) {
-  if (collectionRef.aggregate) {
-    const agg = await collectionRef.aggregate({
-      totalAmount: admin.firestore.aggregate.sum('amount')
-    });
-    return agg.data().totalAmount || 0;
-  } else {
-    const snap = await collectionRef.get();
-    return snap.docs.reduce((sum, doc) => sum + (doc.data().amount || 0), 0);
-  }
+  const snap = await collectionRef.get();
+  return snap.docs.reduce((sum, doc) => sum + (doc.data().amount || 0), 0);
 }
 
 // --- Main Sales Data Function ---
