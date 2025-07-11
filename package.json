@@ -1,7 +1,8 @@
 {
-  "name": "daimawebapp-server",
+  "name": "analytics",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -11,18 +12,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@google-cloud/firestore": "^7.10.0",
-    "africastalking": "^0.7.3",
-    "axios": "^1.10.0",
-    "body-parser": "^2.2.0",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
-    "dotenv": "^17.0.0",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
-    "express-rate-limit": "^7.5.1",
-    "firebase": "^11.9.1",
-    "helmet": "^7.2.0",
-    "winston": "^3.17.0",
-    "winston-daily-rotate-file": "^5.0.0"
+    "firebase-admin": "^13.4.0",
+    "nodemailer": "^7.0.5"
   }
 }
